@@ -2,24 +2,18 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import Button from "./components/Button/Button";
-import TextInput from "./components/TextInput/TextInput";
-import TextInputForm from "./components/TextInputForm/TextInputForm";
 import TextInputFormContainer from "./components/TextInputForm/TextInputFormContainer";
+import StartGame from "./pages/StartGame";
+import PlayGame from "./pages/PlayGame";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div>
-      
-      {/* <TextInput
-        label={"Enter some text"}
-        placeholder={"Enter some text here"}
-        value={""}
-        onChangeHandler={(e) => console.log(e.target.value)}
-      /> */}
-      <TextInputFormContainer/>
-      
-    </div>
+    <Routes>
+
+      <Route path="/start" element={<StartGame />} />
+      <Route path="/play" element={<PlayGame />} />
+    </Routes>
   );
 }
 
