@@ -14,7 +14,7 @@ const TextInputFormContainer = () => {
     if(value){
       //if we have something valid in value then we want  to go to the play page
     
-        navigate('/play')
+        navigate('/play',{ state: { wordSelected:value }})
       
   
     }
