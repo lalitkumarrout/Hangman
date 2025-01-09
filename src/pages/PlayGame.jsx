@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   Link,
   useLocation,
@@ -8,17 +8,20 @@ import {
 import MaskedText from "../components/MaskedText/MaskedText";
 import LetterButtons from "../components/LetterButtons/LetterButtons";
 import HangMan from "../components/Hangman/HangMan";
+import { WordContext } from "../context/WordContext";
+import { list } from "postcss";
 
 const PlayGame = () => {
   // const[searchparams] =useSearchParams();
   // console.log(searchparams.get('text'));
-  const { state } = useLocation();
+  //const { state } = useLocation();
+  const { wordlist, word } = useContext(WordContext);
 
   const [guesedLetters, setGuessedLetters] = useState([]);
   const [step, setstep] = useState(0);
 
   function handleLetterclick(letter) {
-    if (state?.wordSelected?.toUpperCase().includes(letter)) {
+    if (word?.toUpperCase().includes(letter)) {
       console.log("correct");
     } else {
       console.log("Wrong");
@@ -30,15 +33,13 @@ const PlayGame = () => {
   return (
     <>
       <h1>Play Game </h1>
-      {state?.wordSelected && (
+
+      {word && (
         <>
-          <MaskedText
-            text={state?.wordSelected}
-            guessedLetters={guesedLetters}
-          />
+          <MaskedText text={word} guessedLetters={guesedLetters} />
           <div>
             <LetterButtons
-              text={state?.wordSelected}
+              text={word}
               guessedletters={guesedLetters}
               onLetterClick={handleLetterclick}
             />
@@ -48,7 +49,10 @@ const PlayGame = () => {
           </div>
         </>
       )}
-      <Link to="/" className="text-blue-400"> Home</Link>
+      <Link to="/" className="text-blue-400">
+        {" "}
+        Home
+      </Link>
       {/* <Link to="/Start" className="text-blue-400">
         Start Game Link
       </Link> */}

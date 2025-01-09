@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button/Button";
+import { WordContext } from "../context/WordContext";
 
 const Home = () => {
-  const [word, setword] = useState("");
+ 
+  const{setWordlist,setword}=useContext(WordContext);
 
   async function fetchwords() {
     const response = await fetch("http://localhost:3000/words");
     const data = await response.json();
     console.log(data);
+    setWordlist([...data]);
     const randomIndex=Math.floor(Math.random()*data.length);
     console.log(data[randomIndex]);
     setword(data[randomIndex].wordvalue);
@@ -19,7 +22,7 @@ const Home = () => {
   }, []);
   return (
     <>
-      <Link to="/play" state={{ wordSelected: word }}>
+      <Link to="/play">
         <Button text="Single player Game" />
       </Link>
       <br />
